@@ -1,0 +1,16 @@
+This project contains a class called TMouseJiggler. If you look it is a mouse jiggler and you can see there is a Main form (Main.pas, TMainForm). This form is currently blank.
+
+I'd like you to complete the main form so it can control the mouse jiggler class.
+
+It will need to add :
+
+1. A drop down to select the Pattern
+
+2. An edit to change the movement amount. We will need to limit this, so the only viable options should be 1, 2, 5, 10, 15. We could make the edit read only and add + and - buttons instead.
+
+3. We need to be able to set an interval. Values values for this are ( in seconds ) : 10, 15, 30, 60, 120. As with movement we could make the edit read only and add + and - buttons instead.
+
+4. Something to switch off and on the jiggle ( So a Start/Stop button )
+5. We will need an Exit button
+
+We must be able to minimize this to the System Tray, so a user can hide this from sight and then 'Restore' the application when required

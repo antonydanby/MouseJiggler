@@ -1,0 +1,27 @@
+I need a comic like icon image of a computer mouse for a mouse jiggler app I'm writing. Can you do this and give it back to me as a jpg and an SVG. I need the jpg in 128x128 and 64x64. Can you also make a rounded icon (.icon) image add well
+
+
+None of the links to these images are working
+
+
+What have you done now ? That doesn't help. I need these images INDIVIDUALLY and so I can download them to Windows 11 and use them inside Delphi
+
+
+OK, that's how I want them all. Can you now give me this image in the same way. Can you give me it in Blue, not purple
+
+
+OMG how many times are you going to get this wrong. I want a downloadable image not a screen shot of an apple system with some images in it .... Aaaagh
+
+
+Oh for f* sake... I need to walk away you are driving me mad !
+
+
+HOW CAN I MAKE THIS MORE UNDERSTANDABLE... I NEED TO IMAGES TO GO INSIDE THE APPLICATION AND AS AN APP ICON, NOT DRAWINGS OF O/S SYSTEMS WITH A MOUSE ON IT... I'M A DEVELOPER AND I NEED THE IMAGES FOR MY APPLICATION !!! IF YOU CAN'T GET WHAT I WANT FROM THIS PROMPT THEN IT'S A BAD JOB 
+
+
+Yes, but you've added a huge white background and I have to edit this and faff around and it's just not worth it
+
+
+// ========================
+
+Conclusion - Sometimes A.I just drives you mad as it totally gets the wrong end of the stick. That why every prompt you write has to be so exact and this is a good example of how NOT to write an exact prompt ;-) Totally my fault on reflection, lesson learnt !

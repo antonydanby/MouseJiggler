@@ -1,0 +1,2 @@
+I need a Delphi 11.2 component to jiggle the mouse, i.e. move the mouse position by a few pixels at a time in the x,y coordinates. It should use windows messages to perform this (WM_). The class must have a start and a stop method. The class must also allow the developer to set the amount of movement (. movement), the interval between movements (.interval) and the pattern (.pattern - Up down, Left right, Random, ReturnToStartPos). Any other method must be private. I need you to return a complete class 
+

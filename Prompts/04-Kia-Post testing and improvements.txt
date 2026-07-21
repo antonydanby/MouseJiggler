@@ -1,0 +1,13 @@
+
+I have given this to a number of people to test and have tested this myself. 
+I have come up with a few issues
+
+1. On Movement amount = 2 this movement is barely perceptible on a 2k monitor. I have changed this to 5, 10, 15, 20, 25 with the default as 15. I have modified this so you don't have to.
+
+2. This one is more concerning. It has been tested on 3 different computers: This machine, which is a powerful desktop and my laptop behind me and a friends laptop. It does not work on my friends laptop. He has an older machine, but it's still running Windows 11, but he's changed his mouse cursor from the default. Can you think of anything that might prevent this logic from working
+
+
+See feedback screenshot
+----
+
+Can you add an OnFeedback(const State: TJiggleState;const Value: string) to the class where TJiggleState is (jsError, jsWarning, jsInfo)

@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7C8FB792-0787-4093-BE33-D138A07FAC23}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Jiggler.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Jiggler">
+        <MSBuild Projects="Jiggler.dproj"/>
+    </Target>
+    <Target Name="Jiggler:Clean">
+        <MSBuild Projects="Jiggler.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Jiggler:Make">
+        <MSBuild Projects="Jiggler.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Jiggler"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Jiggler:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Jiggler:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
