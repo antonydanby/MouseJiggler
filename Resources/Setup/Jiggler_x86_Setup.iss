@@ -4,7 +4,7 @@
 
 [Setup]
 AppName=Jiggler
-AppVersion=1.0.0.0
+AppVersion=1.0.0.5
 WizardStyle=modern dynamic
 DefaultDirName={autopf}\Jiggler
 DefaultGroupName=My Program
@@ -13,10 +13,17 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=.
 
+DisableWelcomePage=yes
+LicenseFile=license.txt
+;InfoBeforeFile=readme.txt
+UserInfoPage=no
+DisableDirPage=no
+DisableProgramGroupPage=yes
+;InfoAfterFile=readme.txt
+
 [Files]
 Source: "Jiggler_x86.exe"; DestDir: "{app}"; DestName: "Jiggler.exe"
-; Source: "MyProg.chm"; DestDir: "{app}"
-; Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
+Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
 
 [Icons]
 Name: "{group}\My Program"; Filename: "{app}\Jiggler.exe"
