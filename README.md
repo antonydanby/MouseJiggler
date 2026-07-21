@@ -1,6 +1,8 @@
 # Jiggler application for Delphi
 A lightweight and simple application to allow the user to jiggle the on screen mouse cursor 
 
+![Jiggler screenshot](Resources/Jiggler-Screenshot.png)
+
 ## 📁 Project Structure
 /: Contains the project and group files
 
