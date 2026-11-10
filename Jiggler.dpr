@@ -5,7 +5,8 @@ uses
   Vcl.Forms,
   Main in 'Source\Main.pas' {MainForm},
   MouseJiggler in 'Source\MouseJiggler.pas',
-  VersionInfo in 'Source\VersionInfo.pas';
+  VersionInfo in 'Source\VersionInfo.pas',
+  JSONConfig in 'Source\JSONConfig.pas';
 
 {$R *.res}
 
@@ -25,7 +26,7 @@ begin
     Application.Initialize;
     Application.MainFormOnTaskbar := True;
     Application.CreateForm(TMainForm, MainForm);
-    Application.Run;
+  Application.Run;
   finally
     if InstanceMutex <> 0 then
       CloseHandle(InstanceMutex);

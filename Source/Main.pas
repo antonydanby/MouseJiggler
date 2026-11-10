@@ -4,11 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages,
-  System.SysUtils, System.Variants, System.Classes,
+  System.SysUtils, System.Variants, System.Classes, System.IOUtils,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus,
 
-  MouseJiggler, VersionInfo, Vcl.Imaging.jpeg, Vcl.Imaging.pngimage;
+  MouseJiggler, VersionInfo, JSONConfig, Vcl.Imaging.jpeg, Vcl.Imaging.pngimage;
 
 type
   TMainForm = class(TForm)
@@ -52,6 +52,11 @@ type
     FMovementIndex: Integer;
     FIntervalIndex: Integer;
     FAllowClose: Boolean;
+    FConfig: TJSONConfig;
+    FConfigFile: string;
+    function ResolutionKey: string;
+    procedure LoadConfig;
+    procedure SaveConfig;
     procedure ChangeMovement(Delta: Integer);
     procedure ChangeInterval(Delta: Integer);
     procedure RestoreFromTray;
@@ -73,8 +78,80 @@ const
   MovementOptions: array[0..4] of Integer = (5, 10, 15, 20, 25);
   IntervalOptions: array[0..4] of Integer = (10, 15, 30, 60, 120);
 
+function TMainForm.ResolutionKey: string;
+begin
+  Result := Format('Resolution_%dx%d', [Screen.Width, Screen.Height]);
+end;
+
+procedure TMainForm.LoadConfig;
+var
+  key: string;
+  l, t, w, h: Integer;
+begin
+  try
+    FConfig.LoadFromFile(FConfigFile, True);
+  except
+    FConfig.Clear; // unreadable config is treated as no config
+  end;
+
+  key := ResolutionKey;
+  try
+    if not (FConfig.HasKey(key + '.Left') and FConfig.HasKey(key + '.Top') and
+            FConfig.HasKey(key + '.Width') and FConfig.HasKey(key + '.Height')) then
+      Exit;
+
+    l := FConfig.GetInteger(key + '.Left', Left);
+    t := FConfig.GetInteger(key + '.Top', Top);
+    w := FConfig.GetInteger(key + '.Width', Width);
+    h := FConfig.GetInteger(key + '.Height', Height);
+  except
+    Exit;
+  end;
+
+  if (w < 100) or (h < 100) or (w > Screen.Width) or (h > Screen.Height) then
+    Exit;
+  if (l < 0) or (t < 0) or (l + w > Screen.Width) or (t + h > Screen.Height) then
+    Exit;
+
+  Position := poDesigned;
+  SetBounds(l, t, w, h);
+end;
+
+procedure TMainForm.SaveConfig;
+var
+  key: string;
+  placement: TWindowPlacement;
+  r: TRect;
+begin
+  if FConfig = nil then
+    Exit;
+
+  placement.length := SizeOf(placement);
+  if HandleAllocated and GetWindowPlacement(Handle, @placement) then
+    r := placement.rcNormalPosition
+  else
+    r := BoundsRect;
+
+  key := ResolutionKey;
+  FConfig.SetInteger(key + '.Left', r.Left);
+  FConfig.SetInteger(key + '.Top', r.Top);
+  FConfig.SetInteger(key + '.Width', r.Right - r.Left);
+  FConfig.SetInteger(key + '.Height', r.Bottom - r.Top);
+
+  try
+    FConfig.SaveToFile(FConfigFile);
+  except
+    // failing to persist settings must not block closing
+  end;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  Caption := 'Jiggler - Version ' + TVersionInfo.FileVersion;
+
+  FConfig := TJSONConfig.Create;
+  FConfigFile := TPath.Combine(ExtractFilePath(ParamStr(0)), 'Jiggler.json');
+  LoadConfig;
   FMouseJiggler := TMouseJiggler.Create(Self);
   FMovementIndex := 2;
   FIntervalIndex := 1;
@@ -109,12 +186,16 @@ end;
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   FMouseJiggler.Stop;
+  FConfig.Free;
 end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   if FAllowClose then
+  begin
+    SaveConfig;
     Exit;
+  end;
 
   CanClose := False;
   WindowState := wsMinimized;
