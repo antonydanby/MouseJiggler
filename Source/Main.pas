@@ -108,9 +108,12 @@ begin
     Exit;
   end;
 
-  if (w < 100) or (h < 100) or (w > Screen.Width) or (h > Screen.Height) then
+  if (w < 100) or (h < 100) or (w > Screen.DesktopWidth) or (h > Screen.DesktopHeight) then
     Exit;
-  if (l < 0) or (t < 0) or (l + w > Screen.Width) or (t + h > Screen.Height) then
+  // Must lie on the virtual desktop spanning all monitors, not just the primary
+  if (l < Screen.DesktopLeft) or (t < Screen.DesktopTop) or
+     (l + w > Screen.DesktopLeft + Screen.DesktopWidth) or
+     (t + h > Screen.DesktopTop + Screen.DesktopHeight) then
     Exit;
 
   Position := poDesigned;
